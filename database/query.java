@@ -1,10 +1,4 @@
 import java.util.*;
-user_ID int,
-record_Number int,
-name varchar(256),
-sex char(1),
-hourly_Wage float,
-ssn char(9),
 public class query {
 	public static void main(String[] args) {
         Timing timer = new Timing();
