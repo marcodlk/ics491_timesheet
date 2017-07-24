@@ -25,8 +25,8 @@ Pending:
 - [ ] ~~Integrate web server functionality~~ **_backlogged_** , *we may be unable to integrate web server functionality due to time constraints*
 
 What each team member worked on: 
-- **Marco**, @marcodlk - set up the repo, wrote all code in the repo at the moment; discussed login/authentication system and database handling implementation with Collon 
-- **Collon**, @codosa - established database queries to be used; researched login/authentication system ideas and relayed them to Marco; discussed important issues in the secure design of database handling implementation 
+- **Marco**, @marcodlk - set up the repo, wrote all code in the repo at the moment, aside from database related code; discussed login/authentication system and database handling implementation with Collon 
+- **Collon**, @codosa - established database queries to be used; added database related code; researched login/authentication system ideas and relayed them to Marco; discussed important issues in the secure design of database handling implementation 
 
 #### Repo:
 https://github.com/marcodlk/ics491_timesheet
