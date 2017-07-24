@@ -27,8 +27,9 @@ Pending:
 - Implement punch clock class
 - Implement login/authentication system
 \
+\
 What each team member worked on: \
 Marco - set up the repo, wrote all code in the repo at the moment; discussed login/authentication system and database handling implementation with Collon \
-Collon - established database queries to be used; researched login/authentication system ideas and relayed them to Marco; discussed important issues in the secure design of database handling implementation \n\
+Collon - established database queries to be used; researched login/authentication system ideas and relayed them to Marco; discussed important issues in the secure design of database handling implementation \
 Repo:
 https://github.com/marcodlk/ics491_timesheet
