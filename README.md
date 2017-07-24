@@ -16,11 +16,12 @@ Completed:
 - [x] Created sample database directory and files 
 
 Pending: 
-- [ ] No specific secure coding practices implemented yet, only discussed 
+- [ ] UserInterface - Validate user input to ensure they are restricted to available options
 - [ ] Implement record management handler class
 - [ ] Implement database handler class
 - [ ] Implement punch clock class
 - [ ] Implement login/authentication system
+- [ ] Enable Java Security Manager ?
 
 What each team member worked on: 
 - Marco, @marcodlk - set up the repo, wrote all code in the repo at the moment; discussed login/authentication system and database handling implementation with Collon 
