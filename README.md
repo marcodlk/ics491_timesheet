@@ -22,6 +22,7 @@ Pending:
 - [ ] Implement punch clock class
 - [ ] Implement login/authentication system
 - [ ] Enable Java Security Manager ?
+- [ ] ~~Integrate web server functionality~~ **_backlogged_** , *we may be unable to integrate web server functionality due to time constraints*
 
 What each team member worked on: 
 - Marco, @marcodlk - set up the repo, wrote all code in the repo at the moment; discussed login/authentication system and database handling implementation with Collon 
