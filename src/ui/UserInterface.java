@@ -166,6 +166,8 @@ public class UserInterface implements Runnable {
     displayGreetingSign();
     displayGreetingMessage();
 
+    //TODO get token from loginManager;
+
     //run in mode respective to privilege level
     if (token.getPrivilegeLevel() == 1) {
       runAsAdmin();
