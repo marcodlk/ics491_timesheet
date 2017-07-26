@@ -1,9 +1,13 @@
 package ui;
 
 //java
+import java.io.Console;
+import java.io.*;
 import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.Scanner;
 //local
+import security.LoginManager;
 import token.Token;
 
 
@@ -14,6 +18,7 @@ public class UserInterface implements Runnable {
 
   /* variables */
   private Token token;
+	public static final char ESC = 27;
 
   /* constructor */
   public UserInterface(Token loginToken) {
@@ -161,13 +166,41 @@ public class UserInterface implements Runnable {
     }
   }
 
+	private void loginScreen() {
+    Scanner reader = new Scanner(System.in);
+    System.out.println("+----------------------------------------------------------");
+    System.out.println("| Please login:                                            ");
+    System.out.println("+----------------------------------------------------------");
+    System.out.print("| Username > ");
+		String username = reader.nextLine();
+
+    System.out.println("+----------------------------------------------------------");
+    System.out.print("| Password > ");
+		String password = reader.nextLine();
+    System.out.println("+----------------------------------------------------------");
+    System.out.println("");
+		this.token = LoginManager.authenticate(username,password);
+		while (this.token.getId() == -1) {
+			System.out.println("+----------------------------------------------------------");
+			System.out.println("| Invalid credentials... please try again:                 ");
+			System.out.println("+----------------------------------------------------------");
+			System.out.print("| Username > ");
+			username = reader.nextLine();
+
+			System.out.println("+----------------------------------------------------------");
+			System.out.print("| Password > ");
+			password = reader.nextLine();
+			System.out.println("+----------------------------------------------------------");
+			System.out.println("");
+			this.token = LoginManager.authenticate(username,password);
+		}	
+	}
+
   public void run() {
-    //display
+		System.out.print("\033[2J\033[;H");
     displayGreetingSign();
+		loginScreen();
     displayGreetingMessage();
-
-    //TODO get token from loginManager;
-
     //run in mode respective to privilege level
     if (token.getPrivilegeLevel() == 1) {
       runAsAdmin();
