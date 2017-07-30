@@ -18,7 +18,6 @@ public class UserInterface implements Runnable {
 
   /* variables */
   private Token token;
-	public static final char ESC = 27;
 
   /* constructor */
   public UserInterface(Token loginToken) {
