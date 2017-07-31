@@ -1,10 +1,14 @@
 package security;
 
 import java.lang.RuntimeException;
+import java.lang.Exception;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.security.MessageDigest;
+import java.math.*;
 //local
 import token.Token;
+import database.DB2JavaInterface;
 
 /*
  * Login Manager class.
@@ -12,12 +16,14 @@ import token.Token;
 public final class LoginManager {
 
 	private final String globalSalt = "123456789"; //TODO should NOT be hardcoded
+	//private static DB2JavaInterface database; 
+
 	
 	public static Token authenticate(String username, String password) {
 		if (!validateUsername(username)) {
 			return new Token("",-1,-1);
 		}
-		if (!validatePassword(password)) {
+		if (!validatePassword(username, password)) {
 			return new Token("",-1,-1);
 		}
 
@@ -35,7 +41,44 @@ public final class LoginManager {
 		}
 		*/
 
-		return new Token(username,1,0);
+		String[] authTuple = verifyCredentials(username,password);
+		if (authTuple == null) {
+			return new Token("",-1,-1);
+		}
+		
+		return new Token(username,
+										 Integer.parseInt(authTuple[0]),
+										 Integer.parseInt(authTuple[1]));
+	}
+
+	private static String[] verifyCredentials(String username, String password) {
+		//DB2JavaInterface database = new DB2JavaInterface("/home/codosa/ICS491/ics491_timesheet-dev/resources/database/users.csv");
+		DB2JavaInterface usersDatabase = new DB2JavaInterface("/Users/Marco/Documents/School/17/Summer/ICS491/timesheet/resources/database/users.csv");
+		if(!usersDatabase.exists(1,username)) {
+			return null;
+		}
+
+		//storedHash is the password from the database			
+		String storedHash = usersDatabase.searchForPassword(1, username);
+		String inputHash = "";
+		
+		// this converts string using MD5 hash
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(password.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			inputHash = number.toString(16);
+		} catch (Exception nSA ) {}
+		// if hashes are equal, we have successful authentication
+		//System.out.println("stored: " + storedHash + " input: " + inputHash);
+		if (!inputHash.equals(storedHash)) {
+			return null;
+		}
+		String[] authTuple = new String[2];
+		authTuple[0] = usersDatabase.getColumnForRowMatching(0,1,username);
+		authTuple[1] = usersDatabase.getColumnForRowMatching(3,1,username);
+
+		return authTuple;
 	}
 
 	private static boolean validateUsername(String username) {
@@ -53,11 +96,10 @@ public final class LoginManager {
 		if (containsSpaceCharacters(username)) {
 			return false;
 		}
-
-		return true;
+		return true;	
 	}
 
-	private static boolean validatePassword(String password) throws RuntimeException{
+	private static boolean validatePassword(String username, String password) throws RuntimeException {
 		/* requirements:
 			 - minimum length = 8 
 			 - maximum length = 30
@@ -76,13 +118,12 @@ public final class LoginManager {
 		if (countDigitsIn(password) <= 0) {
 			return false;
 		}
-
 		return true;
 	}
 
 	private static int countOccurrences(String string, String regex) {
 		if (string == null || string.isEmpty()) {
-			throw new RuntimeException("countRegexOccurrencesIn: Unable to evaluate empty string");
+			throw new RuntimeException("countOccurrences: Unable to evaluate empty string");
 		}
 		Pattern pattern = Pattern.compile(regex);	
 		Matcher matcher = pattern.matcher(string);

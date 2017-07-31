@@ -19,19 +19,15 @@ public class UserInterface implements Runnable {
 
   /* variables */
   private Token token;
-	DBManager dbMan;
+	//DBManager dbMan;
 
   /* constructor */
   public UserInterface(Token loginToken) {
     this.token = loginToken;
-		this.dbMan = new DBManager("/Users/Marco/Documents/School/17/Summer/ICS491/timesheet/resources/database"); //TODO this is hardcoded rn...
+		//this.dbMan = new DBManager("/Users/Marco/Documents/School/17/Summer/ICS491/timesheet/resources/database"); //TODO this is hardcoded rn...
   }
 
   /* methods */
-  public void displayMainMenu() {
-    // TODO: display only functions respective to token.privilegeLevel
-  }
-
   private void displayGreetingSign() {
     System.out.println("");
     System.out.println("xxxxxx xx xx   xx xxxxxx xxxxxx xx  xx xxxxxx xxxxxx xxxxxx");
@@ -90,12 +86,12 @@ public class UserInterface implements Runnable {
       System.out.print("... about EVERYONE");
     }
     System.out.println(" !");
-		dbMan.getTimesheetByID(0);
+		//dbMan.getTimesheetByID(0);
   }
 
   private void displayRecordsMenu() {
     System.out.println("Here you can manage records !");
-		dbMan.getRecordByID(0);
+		//dbMan.getRecordByID(0);
   }
 
   public void runAsAdmin() {

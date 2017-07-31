@@ -48,8 +48,7 @@ public class DB2JavaInterface {
 			System.err.println(loadedFileName + " was not found.");
 		}
 	}
-	public void searchForMatch(int columnNumber, String value) {
-		System.err.println("SEARCHING . . . " + value + " in column " + columnNumber);
+	public String getColumnForRowMatching(int reqCol, int matchCol, String value) {
 		String rowValue; // stores the row string from the buffered readers
 							// readLine()
 		try {// loads the file to perform search
@@ -65,10 +64,49 @@ public class DB2JavaInterface {
 				// represents
 				// a
 				// column
-				if (row[columnNumber].equals(value)) {
-					rowValue = rowValue.replaceAll("\"","\\\"");
-					System.out.println(rowValue);
+				if (row[matchCol].equals(value)) {
+					//rowValue = rowValue.replaceAll("\"","\\\"");
+					//System.out.println("Password for: " + value);
+					return row[reqCol];
+					//rowValue = "";
+				} else {
 					rowValue = "";
+				}
+				myBuffReader.readLine();
+			}
+		} catch (IOException e) {
+			System.out.println("Try and catch this, jerk.");
+		}
+		try {
+			myBuffReader.close();
+		} catch (IOException e) {
+			System.out.println("The file did not close properly.");
+		}
+		return null;
+	}
+
+	//used specifically by login manager
+	public String searchForPassword(int columnNumber, String value) {
+		return getColumnForRowMatching(2,columnNumber,value);
+	}
+
+	public boolean exists(int columnNumber, String value) {
+		String rowValue; 
+		try {// loads the file to perform search
+			myFileReader = new FileReader(this.loadedFileName);
+		} catch (FileNotFoundException e) {
+			System.out.println(loadedFileName + " was not found.");
+		}
+		myBuffReader = new BufferedReader(myFileReader);
+		try {
+			while ((rowValue = myBuffReader.readLine()) != null) {
+				String[] row = rowValue.toString().split(SEPARATOR); // each
+				// index
+				// represents
+				// a
+				// column
+				if (row[columnNumber].equals(value)) {
+					return true;
 				} else {
 					rowValue = "";
 				}
@@ -82,6 +120,7 @@ public class DB2JavaInterface {
 		} catch (IOException e) {
 			System.err.println("The file did not close properly.");
 		}
+		return false;
 	}
 
 public void searchForMatch(int columnNumber, int columnNumber2, String value, String value2) {

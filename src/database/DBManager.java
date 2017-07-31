@@ -20,20 +20,20 @@ public class DBManager {
 
 	public ArrayList<String> getRecordByID(int id) {
 		ArrayList<String> row = new ArrayList<String>();
-		recordsKeeper.searchForMatch(0,Integer.toString(id));
+		//recordsKeeper.searchForMatch(0,Integer.toString(id));
 		return row;
 	}
 
 	public ArrayList<String> getUserByID(int id) {
 		ArrayList<String> row = new ArrayList<String>();
-		usersKeeper.searchForMatch(0,Integer.toString(id));
+		//usersKeeper.searchForMatch(0,Integer.toString(id));
 		return row;
 	}
 
 	public ArrayList<ArrayList<String>> getTimesheetByID(int id) {
 		ArrayList<String> row = new ArrayList<String>();
 		ArrayList<ArrayList<String>> rows = new ArrayList<ArrayList<String>>();
-		timesheetKeeper.searchForMatch(0,Integer.toString(id));
+		//timesheetKeeper.searchForMatch(0,Integer.toString(id));
 		return rows;
 	}
 
