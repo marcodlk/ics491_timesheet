@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.*;
 import java.util.Scanner;
 //local
+import database.DBManager;
 import security.LoginManager;
 import token.Token;
 
@@ -18,10 +19,12 @@ public class UserInterface implements Runnable {
 
   /* variables */
   private Token token;
+	DBManager dbMan;
 
   /* constructor */
   public UserInterface(Token loginToken) {
     this.token = loginToken;
+		this.dbMan = new DBManager("/Users/Marco/Documents/School/17/Summer/ICS491/timesheet/resources/database"); //TODO this is hardcoded rn...
   }
 
   /* methods */
@@ -87,10 +90,12 @@ public class UserInterface implements Runnable {
       System.out.print("... about EVERYONE");
     }
     System.out.println(" !");
+		dbMan.getTimesheetByID(0);
   }
 
   private void displayRecordsMenu() {
     System.out.println("Here you can manage records !");
+		dbMan.getRecordByID(0);
   }
 
   public void runAsAdmin() {

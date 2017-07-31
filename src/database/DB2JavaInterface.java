@@ -1,3 +1,5 @@
+package database;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -43,16 +45,17 @@ public class DB2JavaInterface {
 		try {
 			myFileReader = new FileReader(fileName);
 		} catch (FileNotFoundException e) {
-			System.out.println(loadedFileName + " was not found.");
+			System.err.println(loadedFileName + " was not found.");
 		}
 	}
 	public void searchForMatch(int columnNumber, String value) {
+		System.err.println("SEARCHING . . . " + value + " in column " + columnNumber);
 		String rowValue; // stores the row string from the buffered readers
 							// readLine()
 		try {// loads the file to perform search
 			myFileReader = new FileReader(this.loadedFileName);
 		} catch (FileNotFoundException e) {
-			System.out.println(loadedFileName + " was not found.");
+			System.err.println(loadedFileName + " was not found.");
 		}
 		myBuffReader = new BufferedReader(myFileReader);
 		try {
@@ -72,12 +75,12 @@ public class DB2JavaInterface {
 				myBuffReader.readLine();
 			}
 		} catch (IOException e) {
-			System.out.println("Try and catch this, jerk.");
+			System.err.println("Try and catch this, jerk.");
 		}
 		try {
 			myBuffReader.close();
 		} catch (IOException e) {
-			System.out.println("The file did not close properly.");
+			System.err.println("The file did not close properly.");
 		}
 	}
 
@@ -87,7 +90,7 @@ public void searchForMatch(int columnNumber, int columnNumber2, String value, St
 	try {// loads the file to perform search
 		myFileReader = new FileReader(this.loadedFileName);
 	} catch (FileNotFoundException e) {
-		System.out.println(loadedFileName + " was not found.");
+		System.err.println(loadedFileName + " was not found.");
 	}
 	myBuffReader = new BufferedReader(myFileReader);
 	try {
@@ -107,12 +110,12 @@ public void searchForMatch(int columnNumber, int columnNumber2, String value, St
 			myBuffReader.readLine();
 		}
 	} catch (IOException e) {
-		System.out.println("Try and catch this, jerk.");
+		System.err.println("Try and catch this, jerk.");
 	}
 	try {
 		myBuffReader.close();
 	} catch (IOException e) {
-		System.out.println("The file did not close properly.");
+		System.err.println("The file did not close properly.");
 	}
 }
 public void searchForMatch(int columnNumber, int columnNumber2, int columnNumber3, String value, String value2, String value3) {
@@ -121,7 +124,7 @@ public void searchForMatch(int columnNumber, int columnNumber2, int columnNumber
 	try {// loads the file to perform search
 		myFileReader = new FileReader(this.loadedFileName);
 	} catch (FileNotFoundException e) {
-		System.out.println(loadedFileName + " was not found.");
+		System.err.println(loadedFileName + " was not found.");
 	}
 	myBuffReader = new BufferedReader(myFileReader);
 	try {
@@ -141,12 +144,12 @@ public void searchForMatch(int columnNumber, int columnNumber2, int columnNumber
 			myBuffReader.readLine();
 		}
 	} catch (IOException e) {
-		System.out.println("Try and catch this, jerk.");
+		System.err.println("Try and catch this, jerk.");
 	}
 	try {
 		myBuffReader.close();
 	} catch (IOException e) {
-		System.out.println("The file did not close properly.");
+		System.err.println("The file did not close properly.");
 	}
 }
 }
