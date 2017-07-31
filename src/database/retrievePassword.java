@@ -1,9 +1,9 @@
 import java.util.*;
-public class query {
+public class retrievePassword {
 	public static void main(String[] args) {
         // dont need to time Timing timer = new Timing();
-		final String queryTemp = "select user_ID, record_Number, name, sex, hourly_Wage, ssn from Records where ";
-		DB2JavaInterface classListing = new DB2JavaInterface("/home/codosa/ICS491/ics491_timesheet-dev/resources/database/records.csv");
+		final String queryTemp = "The password for your selected user is: ";
+		DB2JavaInterface classListing = new DB2JavaInterface("/home/codosa/ICS491/ics491_timesheet-dev/resources/database/users.csv");
 		Scanner keyboard = new Scanner(System.in);
 		int menuChoice;
 		int[] column = new int[7];
@@ -13,22 +13,19 @@ public class query {
 		int searchLevel = 0;
 		String[] searchTerms = new String[7];
 		do {
-			System.out.println("Please choose a query to preform:\n"
-					+ "1. Search For Class\n" + "2. Exit\n"); 
+			System.out.println("Press 1 to Select a User to view encrypted Password"); 
 			menuChoice = keyboard.nextInt();
 			switch (menuChoice) {
 			case 1:
 				while(searchChoice != 0){
 				System.out.println("What would you like to search by?\n"
-						+ "1. User ID\n" + "2. Record Number\n"
-						+ "3. Name\n" + "4. Sex\n" + "5. Hourly Wage\n"
-						+ "6. SSN\n");
+						+ "1. User ID\n");
 				searchChoice = keyboard.nextInt();
 				if (searchChoice == 0)
 					break;
 				switch (searchChoice) {
 				case 1:
-					column[searchLevel] = 0;
+					column[searchLevel] = 1;
 					searchTerms[searchLevel] = "user_ID";
 					break;
 				case 2:
@@ -63,7 +60,7 @@ public class query {
 					System.out.println("These are the results of the following DB2 Query: \n"
 							+ queryTemp + searchTerms[0] + " = '" + value[0] + "'");
 					//timer.start();
-					classListing.searchForMatch(column[0], value[0]);
+					classListing.searchForPassword(column[0], value[0]);
 					//timer.stop();
 		            // System.out.println( timer.print("Total load time") );
 					break;
