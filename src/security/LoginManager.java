@@ -1,10 +1,14 @@
 package security;
 
 import java.lang.RuntimeException;
+import java.lang.Exception;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.security.MessageDigest;
+import java.math.*;
 //local
 import token.Token;
+import database.DB2JavaInterface;
 
 /*
  * Login Manager class.
@@ -12,12 +16,16 @@ import token.Token;
 public final class LoginManager {
 
 	private final String globalSalt = "123456789"; //TODO should NOT be hardcoded
+	private static DB2JavaInterface classListing; 
+
+
+	
 	
 	public static Token authenticate(String username, String password) {
 		if (!validateUsername(username)) {
 			return new Token("",-1,-1);
 		}
-		if (!validatePassword(password)) {
+		if (!validatePassword(username, password)) {
 			return new Token("",-1,-1);
 		}
 
@@ -39,6 +47,7 @@ public final class LoginManager {
 	}
 
 	private static boolean validateUsername(String username) {
+		classListing = new DB2JavaInterface("/home/codosa/ICS491/ics491_timesheet-dev/resources/database/users.csv");
 		/* requirements:
 			 - minimum length = 1 
 			 - maximum length = 15
@@ -53,11 +62,15 @@ public final class LoginManager {
 		if (containsSpaceCharacters(username)) {
 			return false;
 		}
-
-		return true;
+		//Verify the username exists in the database.
+		if(classListing.searchForMatch(0,username)) {
+			return true;
+		}
+		return false;	
 	}
 
-	private static boolean validatePassword(String password) throws RuntimeException{
+	private static boolean validatePassword(String username, String password) throws RuntimeException{
+		
 		/* requirements:
 			 - minimum length = 8 
 			 - maximum length = 30
@@ -76,8 +89,26 @@ public final class LoginManager {
 		if (countDigitsIn(password) <= 0) {
 			return false;
 		}
-
-		return true;
+		/* this should be in its own functions for authenticating password */
+		
+		//dbPass is the password from the database			
+		String dbPass = classListing.searchForPassword(0, username);
+		String tempPass = "";
+		
+		// this converts string using MD5 hash
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+		byte[] messageDigest = md.digest(password.getBytes());
+		BigInteger number = new BigInteger(1, messageDigest);
+		String hashtext = number.toString(16);
+		tempPass = hashtext;
+		} catch (Exception nSA ) {}
+		// if passwords match, we have authentication
+		if ( tempPass.equals(dbPass) ) {
+			return true;
+		}
+		/* end of authentication */
+		return false;
 	}
 
 	private static int countOccurrences(String string, String regex) {
