@@ -15,7 +15,7 @@ import database.DB2JavaInterface;
  */
 public final class LoginManager {
 
-	private final String globalSalt = "123456789"; //TODO should NOT be hardcoded
+	//private final String globalSalt = "123456789"; //TODO should NOT be hardcoded
 	//private static DB2JavaInterface database; 
 
 	

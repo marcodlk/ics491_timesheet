@@ -1,13 +1,11 @@
 package ui;
 
 //java
-import java.io.Console;
 import java.io.*;
 import java.util.NoSuchElementException;
 import java.util.*;
 import java.util.Scanner;
 //local
-import database.DBManager;
 import security.LoginManager;
 import token.Token;
 
@@ -19,12 +17,10 @@ public class UserInterface implements Runnable {
 
   /* variables */
   private Token token;
-	//DBManager dbMan;
 
   /* constructor */
   public UserInterface(Token loginToken) {
     this.token = loginToken;
-		//this.dbMan = new DBManager("/Users/Marco/Documents/School/17/Summer/ICS491/timesheet/resources/database"); //TODO this is hardcoded rn...
   }
 
   /* methods */
@@ -46,8 +42,57 @@ public class UserInterface implements Runnable {
     System.out.println("");
   }
 
-  private void displayPunchClockMenu() {
-    System.out.println("Here you can check-in and check-out !");
+	private int punchClock(int mode) {
+		Scanner reader = new Scanner(System.in);
+		String opt;
+		boolean goBack = false;
+		do {
+			displayPunchClockMenu(mode);
+			System.out.print("> ");
+      try {
+        opt = reader.nextLine();
+      } catch (NoSuchElementException e) {
+        System.out.println("");
+        break;
+      }
+      opt = opt.trim();
+      
+      switch (opt) { 
+        case "1":
+				  if (mode == 0) {
+						//clocking in, begin recording session, send clock-in to timesheet
+					} else { //mode should be 1 here
+						//clocking out, record session terminated, send clock-out to timesheet
+					}
+          mode = (mode + 1) % 2;
+					assert (mode == 0) || (mode == 1);
+          break;
+        case "0": 
+				  goBack = true;
+          break;
+        default:
+          System.out.println("Unrecognized command");
+			}
+		} while (!goBack);
+
+		return mode;
+	}
+
+  private void displayPunchClockMenu(int mode) {
+		assert (mode == 0) || (mode == 1);
+    System.out.println("+---+------------------------------------------------------");
+    System.out.println("|     PUNCH CLOCK                                          ");
+    System.out.println("+---+------------------------------------------------------");
+    System.out.println("|     Select one of the following options:                 ");
+    System.out.println("+---+------------------------------------------------------");
+		if (mode == 0) { //not clocked in
+			System.out.println("| 1 | Clock-in                                             ");
+		} else if (mode == 1) { //already clocked in
+			System.out.println("| 1 | Clock-out                                            ");
+		}
+    System.out.println("+---+------------------------------------------------------");
+    System.out.println("| 0 | Return to Main Menu                                  ");
+    System.out.println("+---+------------------------------------------------------");
   }
 
   private void displayAdminOptions() {
@@ -86,12 +131,10 @@ public class UserInterface implements Runnable {
       System.out.print("... about EVERYONE");
     }
     System.out.println(" !");
-		//dbMan.getTimesheetByID(0);
   }
 
   private void displayRecordsMenu() {
     System.out.println("Here you can manage records !");
-		//dbMan.getRecordByID(0);
   }
 
   public void runAsAdmin() {
@@ -138,6 +181,7 @@ public class UserInterface implements Runnable {
     Scanner reader = new Scanner(System.in);
     String buffer;
     boolean running = true;
+		int sessionStatus = 0;
 
     //run
     while (running) {
@@ -152,7 +196,7 @@ public class UserInterface implements Runnable {
       
       switch (buffer) { // TODO: avoid using string... more vulnerable?
         case "1":
-          displayPunchClockMenu();
+          sessionStatus = punchClock(sessionStatus);
           break;
         case "2":
           displayInfoMenu(0);
