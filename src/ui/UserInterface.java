@@ -1,6 +1,7 @@
 package ui;
 
 //java
+import java.lang.System;
 import java.io.*;
 import java.util.NoSuchElementException;
 import java.util.*;
@@ -76,7 +77,11 @@ public class UserInterface implements Runnable {
 		} while (!goBack);
 
 		return mode;
-	}
+	}  
+
+  private Token getToken() {
+	return this.token;
+  }
 
   private void displayPunchClockMenu(int mode) {
 		assert (mode == 0) || (mode == 1);
@@ -86,9 +91,10 @@ public class UserInterface implements Runnable {
     System.out.println("|     Select one of the following options:                 ");
     System.out.println("+---+------------------------------------------------------");
 		if (mode == 0) { //not clocked in
-			System.out.println("| 1 | Clock-in                                             ");
+			//System.currentTimeMillis() wasn't working and getToken along with trying access token user ID not working
+			System.out.println("| 1 | Clock-in \n\nSample Punch-in: \nINSERT INTO timesheet (user_ID, time_in)  VALUES  ( 1 , 08:30:00  )" );
 		} else if (mode == 1) { //already clocked in
-			System.out.println("| 1 | Clock-out                                            ");
+			System.out.println("| 1 | Clock-out \n\nSample Punch-out: \nINSERT INTO timesheet (user_ID, time_out)  VALUES  ( 1, 4:25:11 ) "   );
 		}
     System.out.println("+---+------------------------------------------------------");
     System.out.println("| 0 | Return to Main Menu                                  ");
@@ -126,15 +132,15 @@ public class UserInterface implements Runnable {
   private void displayInfoMenu(int mode) {
     System.out.print("Here you can request timesheet info");
     if (mode == 0) {
-      System.out.print("... but ONLY about yourself");
+      System.out.print("... but ONLY about yourself. \n\n For example if you wanted to check for your current time clocks: \n\n SELECT user_ID, date, time_in, time_out FROM timesheet\n\t WHERE user_ID =  this.getUserID() ");
     } else if (mode == 1) {
       System.out.print("... about EVERYONE");
     }
-    System.out.println(" !");
+    //System.out.println(" !");
   }
 
   private void displayRecordsMenu() {
-    System.out.println("Here you can manage records !");
+    System.out.println("Here you can manage records! ");
   }
 
   public void runAsAdmin() {
