@@ -1,9 +1,38 @@
 #sample schema
 users:
-	USERNAME,ID,PASSWORD HASH,PRIVILEGE LEVEL
+	user_id,username,password,privilege_level
+
+	CREATE TABLE users (
+		user_id int AUTO_INCREMENT,
+		username varchar(128),
+		password binary(32),
+		privilege_level int,
+		PRIMARY KEY (user_id)
+	);
 
 records:
-	ID,REAL NAME,SEX,HOURLY SALARY,SOCIAL SECURITY NUMBER
+	user_id,name,sex,hourly_wage,ssn
+
+	CREATE TABLE records (
+		user_id int,
+		record_id int AUTO_INCREMENT,
+		name varchar(256),
+		sex char(1),
+		hourly_wage float,
+		ssn char(9)
+		PRIMARY KEY (record_id),
+		FOREIGN KEY (user_id) REFERENCES users(user_id)
+	);
+
 
 timesheet:
-	ID,DATE,TIME IN,TIME OUT
+	session_id,user_id,timein,timeout
+
+  CREATE TABLE timesheet (
+	  session_id int AUTO_INCREMENT,
+		user_id int,
+		timein timestamp,
+		timeout timestamp,
+		PRIMARY KEY (session_id),
+		FOREIGN KEY (user_id) REFERENCES users(user_id)
+	);
