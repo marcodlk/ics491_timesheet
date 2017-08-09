@@ -62,8 +62,33 @@ public class UserInterface implements Runnable {
         case "1":
 				  if (mode == 0) {
 						//clocking in, begin recording session, send clock-in to timesheet
+						String timeIn = 
+							new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date());
+						System.out.println("+----------------------------------------------------------");
+						System.out.println("| Session started at: " + timeIn);
+						System.out.println("+----------------------------------------------------------");
+						//display pseudocode for future development
+						System.out.println(". . .");
+						System.out.println(this.token.getId());
+						System.out.println("  PreparedStatement ps = con.prepareStatement(");
+						System.out.println("    \"insert into timesheet(user_id,timein) values (?,?)\")");
+						System.out.println("  ps.setString(1,token.id); ps.setString(2,timeIn);"); 
+						System.out.println("");
+						System.out.println(". . .");
 					} else { //mode should be 1 here
 						//clocking out, record session terminated, send clock-out to timesheet
+						String timeOut = 
+							new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date());
+						System.out.println("+----------------------------------------------------------");
+						System.out.println("| Session ended at: " + timeOut);
+						System.out.println("+----------------------------------------------------------");
+						//display pseudocode for future development
+						System.out.println(". . .");
+						System.out.println("  PreparedStatement ps = con.prepareStatement(");
+						System.out.println("    \"insert into timesheet(user_id,timeout) values (?,?)\")");
+						System.out.println("  ps.setString(1,token.id); ps.setString(2,timeOut);"); 
+						System.out.println("");
+						System.out.println(". . .");
 					}
           mode = (mode + 1) % 2;
 					assert (mode == 0) || (mode == 1);
@@ -91,10 +116,9 @@ public class UserInterface implements Runnable {
     System.out.println("|     Select one of the following options:                 ");
     System.out.println("+---+------------------------------------------------------");
 		if (mode == 0) { //not clocked in
-			//System.currentTimeMillis() wasn't working and getToken along with trying access token user ID not working
-			System.out.println("| 1 | Clock-in \n\nSample Punch-in: \nINSERT INTO timesheet (user_ID, time_in)  VALUES  ( 1 , 08:30:00  )\n" );
+			System.out.println("| 1 | Clock-in ");
 		} else if (mode == 1) { //already clocked in
-			System.out.println("| 1 | Clock-out \n\nSample Punch-out: \nINSERT INTO timesheet (user_ID, time_out)  VALUES  ( 1, 4:25:11 )\n "   );
+			System.out.println("| 1 | Clock-out ");
 		}
     System.out.println("+---+------------------------------------------------------");
     System.out.println("| 0 | Return to Main Menu                                  ");
@@ -163,7 +187,7 @@ public class UserInterface implements Runnable {
       }
       buffer = buffer.trim();
       
-      switch (buffer) { // TODO: avoid using string... more vulnerable?
+      switch (buffer) { 
         case "1":
           displayRecordsMenu();
           break;
@@ -200,7 +224,7 @@ public class UserInterface implements Runnable {
       }
       buffer = buffer.trim();
       
-      switch (buffer) { // TODO: avoid using string... more vulnerable?
+      switch (buffer) { 
         case "1":
           sessionStatus = punchClock(sessionStatus);
           break;
