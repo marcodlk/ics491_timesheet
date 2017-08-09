@@ -31,8 +31,8 @@ timesheet:
   CREATE TABLE timesheet (
 	  session_id int AUTO_INCREMENT,
 		user_id int,
-		timein timestamp,
-		timeout timestamp,
+		time_in timestamp,
+		time_out timestamp,
 		PRIMARY KEY (session_id),
 		FOREIGN KEY (user_id) REFERENCES users(user_id)
 	);
