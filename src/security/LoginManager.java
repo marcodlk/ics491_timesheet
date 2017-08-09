@@ -52,8 +52,9 @@ public final class LoginManager {
 	}
 
 	private static String[] verifyCredentials(String username, String password) {
+		DB2JavaInterface usersDatabase = new DB2JavaInterface(System.getProperty("user.dir")+"/../resources/database/users.csv");
 		//DB2JavaInterface database = new DB2JavaInterface("/home/codosa/ICS491/ics491_timesheet-dev/resources/database/users.csv");
-		DB2JavaInterface usersDatabase = new DB2JavaInterface("/Users/Marco/Documents/School/17/Summer/ICS491/timesheet/resources/database/users.csv");
+		//DB2JavaInterface usersDatabase = new DB2JavaInterface("/Users/Marco/Documents/School/17/Summer/ICS491/timesheet/resources/database/users.csv");
 		if(!usersDatabase.exists(1,username)) {
 			return null;
 		}
