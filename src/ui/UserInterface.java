@@ -92,9 +92,9 @@ public class UserInterface implements Runnable {
     System.out.println("+---+------------------------------------------------------");
 		if (mode == 0) { //not clocked in
 			//System.currentTimeMillis() wasn't working and getToken along with trying access token user ID not working
-			System.out.println("| 1 | Clock-in \n\nSample Punch-in: \nINSERT INTO timesheet (user_ID, time_in)  VALUES  ( 1 , 08:30:00  )" );
+			System.out.println("| 1 | Clock-in \n\nSample Punch-in: \nINSERT INTO timesheet (user_ID, time_in)  VALUES  ( 1 , 08:30:00  )\n" );
 		} else if (mode == 1) { //already clocked in
-			System.out.println("| 1 | Clock-out \n\nSample Punch-out: \nINSERT INTO timesheet (user_ID, time_out)  VALUES  ( 1, 4:25:11 ) "   );
+			System.out.println("| 1 | Clock-out \n\nSample Punch-out: \nINSERT INTO timesheet (user_ID, time_out)  VALUES  ( 1, 4:25:11 )\n "   );
 		}
     System.out.println("+---+------------------------------------------------------");
     System.out.println("| 0 | Return to Main Menu                                  ");
@@ -132,15 +132,15 @@ public class UserInterface implements Runnable {
   private void displayInfoMenu(int mode) {
     System.out.print("Here you can request timesheet info");
     if (mode == 0) {
-      System.out.print("... but ONLY about yourself. \n\n For example if you wanted to check for your current time clocks: \n\n SELECT user_ID, date, time_in, time_out FROM timesheet\n\t WHERE user_ID =  this.getUserID() ");
+      System.out.print("... but ONLY about yourself. \n\n For example if you wanted to check for your current time clocks: \n\n SELECT user_ID, date, time_in, time_out FROM timesheet\n\t WHERE user_ID =  this.getUserID() \n");
     } else if (mode == 1) {
-      System.out.print("... about EVERYONE");
+      System.out.print("... about EVERYONE! \n\n For example if you wanted to search for an employee: \n\n SELECT * FROM timesheet\n\t WHERE user_ID =  this.getUserID()\n");
     }
     //System.out.println(" !");
   }
 
   private void displayRecordsMenu() {
-    System.out.println("Here you can manage records! ");
+    System.out.println("Here you can manage records! \n\nFor example including a new user: INSERT INTO users (username,password,privilege_level)  VALUES  ( codosa, champ123!, 1 )\n");
   }
 
   public void runAsAdmin() {
