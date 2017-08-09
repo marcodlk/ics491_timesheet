@@ -71,7 +71,7 @@ public class UserInterface implements Runnable {
 						System.out.println(". . .");
 						System.out.println(this.token.getId());
 						System.out.println("  PreparedStatement ps = con.prepareStatement(");
-						System.out.println("    \\n\nSample Punch-in: \nINSERT INTO timesheet (user_ID, time_in)  VALUES  (?,?)\n"");
+						System.out.println("  INSERT INTO timesheet (user_ID, time_in)  VALUES  (?,?)\n");
 						System.out.println("  ps.setString(1,token.id); ps.setString(2,timeIn);"); 
 						System.out.println("");
 						System.out.println(". . .");
@@ -85,7 +85,7 @@ public class UserInterface implements Runnable {
 						//display pseudocode for future development
 						System.out.println(". . .");
 						System.out.println("  PreparedStatement ps = con.prepareStatement(");
-						System.out.println("    \INSERT INTO timesheet (user_ID, time_out)  VALUES  ( ?,? )\n");
+						System.out.println("  INSERT INTO timesheet (user_ID, time_out)  VALUES  ( ?,? )\n");
 						System.out.println("  ps.setString(1,token.id); ps.setString(2,timeOut);"); 
 						System.out.println("");
 						System.out.println(". . .");
