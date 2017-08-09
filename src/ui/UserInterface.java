@@ -68,13 +68,12 @@ public class UserInterface implements Runnable {
 						System.out.println("| Session started at: " + timeIn);
 						System.out.println("+----------------------------------------------------------");
 						//display pseudocode for future development
-						System.out.println(". . .");
-						System.out.println(this.token.getId());
-						System.out.println("  PreparedStatement ps = con.prepareStatement(");
-						System.out.println("  INSERT INTO timesheet (user_ID, time_in)  VALUES  (?,?)\n");
-						System.out.println("  ps.setString(1,token.id); ps.setString(2,timeIn);"); 
-						System.out.println("");
-						System.out.println(". . .");
+						//System.out.println(". . .");
+						//System.out.println("  PreparedStatement ps = con.prepareStatement(");
+						//System.out.println("  INSERT INTO timesheet (user_ID, time_in)  VALUES  (?,?)\n");
+						//System.out.println("  ps.setString(1,token.id); ps.setString(2,timeIn);"); 
+						//System.out.println("");
+						//System.out.println(". . .");
 					} else { //mode should be 1 here
 						//clocking out, record session terminated, send clock-out to timesheet
 						String timeOut = 
@@ -83,12 +82,12 @@ public class UserInterface implements Runnable {
 						System.out.println("| Session ended at: " + timeOut);
 						System.out.println("+----------------------------------------------------------");
 						//display pseudocode for future development
-						System.out.println(". . .");
-						System.out.println("  PreparedStatement ps = con.prepareStatement(");
-						System.out.println("  INSERT INTO timesheet (user_ID, time_out)  VALUES  ( ?,? )\n");
-						System.out.println("  ps.setString(1,token.id); ps.setString(2,timeOut);"); 
-						System.out.println("");
-						System.out.println(". . .");
+						//System.out.println(". . .");
+						//System.out.println("  PreparedStatement ps = con.prepareStatement(");
+						//System.out.println("  INSERT INTO timesheet (user_ID, time_out)  VALUES  ( ?,? )\n");
+						//System.out.println("  ps.setString(1,token.id); ps.setString(2,timeOut);"); 
+						//System.out.println("");
+						//System.out.println(". . .");
 					}
           mode = (mode + 1) % 2;
 					assert (mode == 0) || (mode == 1);
